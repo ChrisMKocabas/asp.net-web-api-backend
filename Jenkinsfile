@@ -9,7 +9,8 @@ pipeline{
                 docker info
                 docker compose version
                 curl --version
-                apt-get install -y jq
+                - apt-get update 
+                - apt-get -y install jq
                 jq --version
                 '''
             }
