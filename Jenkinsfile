@@ -18,7 +18,7 @@ pipeline {
                 sh 'dotnet tool restore --configfile src/Backend/.config/dotnet-tool.json'
                 sh 'dotnet publish src/Backend/Backend.csproj -c Release -o out -r linux-x64 --self-contained'
                 // Tell Web+ how to start this application.
-                sh 'echo "Web: ASPNETCORE_ENVIRONMENT=Development . /Backend" > out/Procfile'
+                sh 'echo "Backend: ASPNETCORE_ENVIRONMENT=Development . /Backend" > out/Procfile'
                 // Package this project.
                 sh 'cd out && zip -qr Backend-dotnet-demo.zip .'
             }
