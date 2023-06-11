@@ -1,8 +1,6 @@
 pipeline {
     agent {
-        docker {
-            image 'mono:latest'
-        }
+        label 'docker-agent-alpine'
     }
     
     stages {
