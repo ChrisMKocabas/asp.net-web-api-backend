@@ -6,7 +6,6 @@ pipeline {
          
     stages {
 
-    stages {
         stage('Prepare') {
             steps {
                 // Clean Jenkins workspace.
@@ -29,5 +28,5 @@ pipeline {
             }
         }
     }
-}
+
 }
