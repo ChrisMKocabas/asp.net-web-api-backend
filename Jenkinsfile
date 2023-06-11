@@ -1,7 +1,9 @@
 pipeline {
         agent {
-        label 'docker-agent-alpine'
-    }
+            docker {
+                label 'docker-agent-alpine'
+            }
+         }
     stages {
         stage("verify tooling") {
             steps {
