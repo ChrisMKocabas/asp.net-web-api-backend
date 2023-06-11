@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+        agent {
+        docker { image 'jenkins/agent:latest-jdk11' }
+    }
     stages {
         stage("verify tooling") {
             steps {
