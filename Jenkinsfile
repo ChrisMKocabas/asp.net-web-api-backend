@@ -1,5 +1,4 @@
 pipeline {
-    // agent {label 'docker-agent-alpine'}
     agent any
     stages {
         stage("verify tooling") {
@@ -10,6 +9,7 @@ pipeline {
                 docker info
                 docker compose version
                 curl --version
+                jq --version
                 '''
             }
         }
