@@ -11,7 +11,6 @@ pipeline {
                 docker compose version
                 curl --version
                 '''
-                sh 'apk add --update jq && jq --version'
             }
         }
     }
