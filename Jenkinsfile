@@ -1,6 +1,6 @@
 pipeline {
         agent {
-        docker { image 'jenkins/agent:latest-jdk11' }
+        label 'docker-alpine-agent'
     }
     stages {
         stage("verify tooling") {
