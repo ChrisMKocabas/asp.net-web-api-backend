@@ -1,6 +1,6 @@
-pipeline{
+pipeline {
     agent {
-        label '!docker-agent-alpine'
+        label 'docker-agent-alpine'
     }
     stages {
         stage("verify tooling") {
@@ -11,10 +11,8 @@ pipeline{
                 docker info
                 docker compose version
                 curl --version
-                - apt-get update 
-                - apt-get -y install jq
-                jq --version
                 '''
+                sh 'apk add --update jq && jq --version'
             }
         }
     }
