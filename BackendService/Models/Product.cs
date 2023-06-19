@@ -6,6 +6,7 @@ namespace BackendService.Models
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public int Price { get; set; }
+		public DateTime AddedDate { get; set; }
 		public ICollection<Review> Reviews { get; set; }
 
 		public ICollection<ProductVendor> ProductVendors { get; set; }

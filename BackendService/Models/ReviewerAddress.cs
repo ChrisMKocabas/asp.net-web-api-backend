@@ -10,7 +10,8 @@ namespace BackendService.Models
 		public string City { get; set; }
 		public string? StateProvince { get; set; }
 		public string Country { get; set; }
-		public Reviewer Reviewer { get; set; }
+        public int ReviewerID { get; set; }
+        public Reviewer Reviewer { get; set; }
 
 	}	
 }

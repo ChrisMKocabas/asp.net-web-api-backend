@@ -21,7 +21,6 @@ namespace BackendService.Data
 		public DbSet<ReviewerAddress> ReviewerAddresses { get; set; }
 		public DbSet<Vendor> Vendors { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            
@@ -54,6 +53,11 @@ namespace BackendService.Data
             .HasForeignKey(v => v.VendorId);
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Reviewer>()
+            .HasOne(a => a.ReviewerAddress)
+            .WithOne(a => a.Reviewer)
+            .HasForeignKey<ReviewerAddress>(c => c.ReviewerID);
         }
 
     }
