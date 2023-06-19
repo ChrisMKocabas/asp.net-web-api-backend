@@ -23,6 +23,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +33,8 @@
     <None Remove="Data\" />
     <None Remove="Repository\" />
     <None Remove="Interfaces\" />
+    <None Remove="Dto\" />
+    <None Remove="Helper\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -38,5 +42,7 @@
     <Folder Include="Data\" />
     <Folder Include="Repository\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Dto\" />
+    <Folder Include="Helper\" />
   </ItemGroup>
 </Project>
