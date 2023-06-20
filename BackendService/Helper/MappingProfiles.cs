@@ -12,6 +12,9 @@ namespace BackendService.Helper
 			CreateMap<Product, ProductDto>();
 			CreateMap<Category, CategoryDto>();
 			CreateMap<Country, CountryDto>();
+			CreateMap<Vendor, VendorDto>();
+			CreateMap<Review, ReviewDto>();
+			CreateMap<Reviewer, ReviewerDto>();
 		}
 	}
 }
