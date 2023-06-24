@@ -14,11 +14,13 @@ namespace BackendService.Controllers
 	{
         private readonly IVendorRepository _vendorRepository;
         private readonly IMapper _mapper;
+        private readonly ICountryRepository _countryRepository;
 
-        public VendorController(IVendorRepository vendorRepository,IMapper mapper)
+        public VendorController(IVendorRepository vendorRepository,IMapper mapper, ICountryRepository countryRepository)
 		{
             _vendorRepository = vendorRepository;
             _mapper = mapper;
+            _countryRepository = countryRepository;
         }
 
         [HttpGet]
@@ -65,6 +67,64 @@ namespace BackendService.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             return Ok(product);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateVendor([FromBody] VendorDto vendorCreate, [FromQuery] string? CountryName)
+        {
+            if (vendorCreate == null)
+                return BadRequest(ModelState);
+
+            var vendors = _vendorRepository.GetVendors().Where(c => c.Name.Trim().ToUpper() == vendorCreate.Name.TrimEnd().ToUpper()).FirstOrDefault();
+
+            if (vendors != null)
+            {
+                ModelState.AddModelError("", "Vendor already exists!");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var vendorMap = _mapper.Map<Vendor>(vendorCreate);
+
+            
+            if (_countryRepository.CountryExists(vendorMap.CountryId))
+            {
+                
+                vendorMap.Country = _countryRepository.GetCountry(vendorMap.CountryId);
+
+            }
+            else if (CountryName != null)
+            {
+                var country = _countryRepository.GetCountries().Where(c => c.Name.Trim().ToUpper() == CountryName.TrimEnd().ToUpper()).FirstOrDefault();
+
+                if (country != null)
+                {
+                    vendorMap.Country = country;
+                } else
+                {
+                    Country newCountry = new Country { Id = vendorMap.CountryId, Name = CountryName };
+
+                    if (!_countryRepository.CreateCountry(newCountry))
+                    {
+                        ModelState.AddModelError("", "Something went wrong while saving.");
+                    }
+
+                    vendorMap.Country = newCountry;
+
+
+                }
+            }
+                 
+            if (!_vendorRepository.CreateVendor(vendorMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving.");
+            }
+
+            return Ok("Successfully created!");
         }
     }
 }

@@ -59,7 +59,8 @@ namespace BackendService.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DefaultAddressId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -123,14 +124,15 @@ namespace BackendService.Migrations
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StateProvince = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReviewerID = table.Column<int>(type: "int", nullable: false)
+                    ReviewerId = table.Column<int>(type: "int", nullable: false),
+                    DefaultAddress = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ReviewerAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ReviewerAddresses_Reviewers_ReviewerID",
-                        column: x => x.ReviewerID,
+                        name: "FK_ReviewerAddresses_Reviewers_ReviewerId",
+                        column: x => x.ReviewerId,
                         principalTable: "Reviewers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -200,10 +202,9 @@ namespace BackendService.Migrations
                 column: "VendorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReviewerAddresses_ReviewerID",
+                name: "IX_ReviewerAddresses_ReviewerId",
                 table: "ReviewerAddresses",
-                column: "ReviewerID",
-                unique: true);
+                column: "ReviewerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ProductId",

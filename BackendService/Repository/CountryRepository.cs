@@ -22,6 +22,12 @@ namespace BackendService.Repository
             return _context.Countries.Any(p => p.Id == id);
         }
 
+        public bool CreateCountry(Country country)
+        {
+            _context.Add(country);
+            return Save();
+        }
+
         public ICollection<Country> GetCountries()
         {
             return _context.Countries.OrderBy(c => c.Name).ToList();
@@ -40,6 +46,12 @@ namespace BackendService.Repository
         public ICollection<Vendor> GetVendorsFromCountry(int countryId)
         {
             return _context.Vendors.Where(c => c.Country.Id == countryId).OrderBy(v=>v.Id).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
     }
 }

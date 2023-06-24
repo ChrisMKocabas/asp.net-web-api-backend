@@ -13,6 +13,10 @@ namespace BackendService.Interfaces
 
 		bool ReviewerExists(int reviewerId);
 
+		ReviewerAddress GetDefaultAddress(int reviewerId);
+
+		ICollection<ReviewerAddress> GetAllAddresses(int id);
+
 	}
 }
 

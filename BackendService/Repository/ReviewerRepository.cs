@@ -35,6 +35,16 @@ namespace BackendService.Repository
         {
             return _context.Reviewers.Where(r => r.Id == reviewerId).SelectMany(r => r.Reviews).ToList();
         }
+
+        public ReviewerAddress GetDefaultAddress(int reviewerId)
+        {
+            return _context.ReviewerAddresses.Where(r => r.ReviewerId == reviewerId && r.DefaultAddress == true).FirstOrDefault();
+        }
+
+        public ICollection<ReviewerAddress> GetAllAddresses(int id)
+        {
+            return _context.ReviewerAddresses.Where(r => r.ReviewerId == id).ToList();
+        }
     }
 }
 

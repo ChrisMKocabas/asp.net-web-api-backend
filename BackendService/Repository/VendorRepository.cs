@@ -14,6 +14,12 @@ namespace BackendService.Repository
             _context = context;
         }
 
+        public bool CreateVendor(Vendor vendor)
+        {
+            _context.Add(vendor);
+            return Save();
+        }
+
         public ICollection<Product> GetProductByVendor(int vendorId)
         {
             return _context.ProductVendors.Where(vp => vp.Vendor.Id == vendorId).Select(vp => vp.Product).OrderBy(p=>p.Id).ToList();
@@ -32,6 +38,12 @@ namespace BackendService.Repository
         public ICollection<Vendor> GetVendors()
         {
             return _context.Vendors.OrderBy(v=>v.Id).ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
 
         public bool VendorExists(int vendorId)

@@ -14,6 +14,18 @@ namespace BackendService.Repository
             _context = context;
 		}
 
+        public bool CreateCategory(Category category)
+        {
+            _context.Add(category);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
         bool ICategoryRepository.CategoryExists(int id)
         {
             return _context.Categories.Any(c => c.Id == id);

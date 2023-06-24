@@ -14,6 +14,11 @@ namespace BackendService.Interfaces
 		ICollection<Vendor> GetVendorsFromCountry(int countryId);
 
 		bool CountryExists(int id);
-	}
+
+        bool CreateCountry(Country country);
+
+        bool Save();
+   
+    }
 }
 

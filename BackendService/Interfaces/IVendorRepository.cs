@@ -15,6 +15,10 @@ namespace BackendService.Interfaces
 
 		bool VendorExists(int vendorId);
 
-	}
+        bool CreateVendor(Vendor vendor);
+
+        bool Save();
+
+    }
 }
 

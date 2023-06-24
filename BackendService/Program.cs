@@ -3,6 +3,7 @@ using BackendService;
 using BackendService.Data;
 using BackendService.Repository;
 using BackendService.Interfaces;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +19,17 @@ builder.Services.AddScoped<IVendorRepository, VendorRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewerRepository, ReviewerRepository>();
 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("defaultString")));
+// Configure DbContext options
+builder.Services.AddDbContext<DataContext>((options) =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("defaultString"));
+    options.LogTo(Console.WriteLine, LogLevel.Information); // Enable logging
+});
 
 
 var app = builder.Build();

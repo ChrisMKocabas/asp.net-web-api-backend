@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendService.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230618192544_initial")]
+    [Migration("20230624032326_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -154,6 +154,9 @@ namespace BackendService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("DefaultAddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -183,11 +186,14 @@ namespace BackendService.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("DefaultAddress")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReviewerID")
+                    b.Property<int>("ReviewerId")
                         .HasColumnType("int");
 
                     b.Property<string>("StateProvince")
@@ -203,8 +209,7 @@ namespace BackendService.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReviewerID")
-                        .IsUnique();
+                    b.HasIndex("ReviewerId");
 
                     b.ToTable("ReviewerAddresses");
                 });
@@ -294,8 +299,8 @@ namespace BackendService.Migrations
             modelBuilder.Entity("BackendService.Models.ReviewerAddress", b =>
                 {
                     b.HasOne("BackendService.Models.Reviewer", "Reviewer")
-                        .WithOne("ReviewerAddress")
-                        .HasForeignKey("BackendService.Models.ReviewerAddress", "ReviewerID")
+                        .WithMany("ReviewerAddresses")
+                        .HasForeignKey("ReviewerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -334,8 +339,7 @@ namespace BackendService.Migrations
 
             modelBuilder.Entity("BackendService.Models.Reviewer", b =>
                 {
-                    b.Navigation("ReviewerAddress")
-                        .IsRequired();
+                    b.Navigation("ReviewerAddresses");
 
                     b.Navigation("Reviews");
                 });

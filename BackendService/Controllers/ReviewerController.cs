@@ -40,7 +40,7 @@ namespace BackendService.Controllers
         [HttpGet("{reviewerId}")]
         [ProducesResponseType(200, Type = typeof(Reviewer))]
         [ProducesResponseType(400)]
-        public IActionResult GetProduct(int reviewerId)
+        public IActionResult GetReviewer(int reviewerId)
         {
             if (!_reviewerRepository.ReviewerExists(reviewerId))
                 return NotFound();
