@@ -8,15 +8,23 @@ namespace BackendService.Interfaces
 
 		ICollection<ReviewerAddress> GetAddresses();
 
-		ReviewerAddress GetAddress(int id);
+		ReviewerAddress GetAddress(int reviewerAddressId);
 
-		ReviewerAddress GetAddressByReviewer(int reviewerId);
+		ReviewerAddress GetDefaultAddressOfReviewer(int reviewerId);
 
         ICollection<ReviewerAddress> GetAllAddressesOfaReviewer(int reviewerId);
 
-		bool AddressExists(int id);
+		bool AddressExists(int reviewerAddressId);
 
-		bool SetDefaultAddress(int id);
+        bool CreateReviewerAddress(ReviewerAddress reviewerAddress);
+
+        bool UpdateReviewerAddress(ReviewerAddress reviewerAddress);
+
+        bool DeleteReviewerAddress(ReviewerAddress reviewerAddress);
+
+        bool DeleteReviewerAddresses(List<ReviewerAddress> reviewerAddresses);
+
+        bool Save();
     }
 }
 

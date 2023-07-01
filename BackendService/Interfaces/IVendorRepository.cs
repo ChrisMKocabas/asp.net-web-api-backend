@@ -17,6 +17,10 @@ namespace BackendService.Interfaces
 
         bool CreateVendor(Vendor vendor);
 
+		bool UpdateVendor(Vendor vendor);
+
+		bool DeleteVendor(Vendor vendor);
+
         bool Save();
 
     }

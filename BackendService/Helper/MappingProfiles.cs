@@ -9,18 +9,13 @@ namespace BackendService.Helper
 	{
 		public MappingProfiles()
 		{
-			CreateMap<Product, ProductDto>();
-			CreateMap<Category, CategoryDto>();
-			CreateMap<Country, CountryDto>();
-			CreateMap<Vendor, VendorDto>();
-			CreateMap<Review, ReviewDto>();
-			CreateMap<Reviewer, ReviewerDto>();
-            CreateMap<ReviewerAddress, ReviewerAddressDto>();
-
-
-            CreateMap<CategoryDto, Category>();
-			CreateMap<CountryDto, Country>();
-			CreateMap<VendorDto, Vendor>();
+			CreateMap<Product, ProductDto>().ReverseMap();
+			CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Country, CountryDto>().ReverseMap();
+            CreateMap<Vendor, VendorDto>().ReverseMap();
+            CreateMap<Review, ReviewDto>().ReverseMap();
+            CreateMap<Reviewer, ReviewerDto>().ReverseMap();
+            CreateMap<ReviewerAddress, ReviewerAddressDto>().ReverseMap();
         }
 	}
 }

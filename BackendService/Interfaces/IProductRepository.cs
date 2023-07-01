@@ -12,6 +12,14 @@ namespace BackendService.Interfaces
 		decimal GetProductRating(int prodId);
 
 		bool ProductExists(int prodId);
+
+		bool CreateProduct(int vendorId, int categoryId, Product product);
+
+		bool UpdateProduct(int productId, int vendorId, int updatedVendorId, int categoryId, int updatedCategoryId, Product product);
+
+		bool DeleteProduct(Product product);
+
+		bool Save();
 	}
 }
 

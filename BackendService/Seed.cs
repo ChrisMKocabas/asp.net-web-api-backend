@@ -12,7 +12,13 @@ namespace BackendService
         {
             _dataContext = context;
         }
-        public void SeedDataContext()
+
+        public DataContext Get_dataContext()
+        {
+            return _dataContext;
+        }
+
+        public void SeedDataContext(DataContext _dataContext)
         {
             if (!_dataContext.ProductVendors.Any())
             {

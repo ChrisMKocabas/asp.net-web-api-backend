@@ -126,6 +126,66 @@ namespace BackendService.Controllers
 
             return Ok("Successfully created!");
         }
+
+
+        [HttpPut("{vendorId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateCountry(int vendorId, [FromBody] VendorDto updatedVendor)
+        {
+            if (updatedVendor == null)
+                return BadRequest(ModelState);
+
+            if (vendorId != updatedVendor.Id)
+                return BadRequest(ModelState);
+
+            if (!_vendorRepository.VendorExists(vendorId))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var vendorMap = _mapper.Map<Vendor>(updatedVendor);
+
+            if (!_vendorRepository.UpdateVendor(vendorMap))
+            {
+                ModelState.TryAddModelError("", "Something went wrong updating vendor");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+
+        }
+
+
+        [HttpDelete("{vendorId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteCategory(int vendorId)
+        {
+            if (!_vendorRepository.VendorExists(vendorId))
+            {
+                return NotFound();
+            }
+
+            var vendorToDelete = _vendorRepository.GetVendor(vendorId);
+
+
+            if (_vendorRepository.GetProductByVendor(vendorId).Any())
+            {
+                return BadRequest("Unable to delete. Vendor in use.");
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_vendorRepository.DeleteVendor(vendorToDelete))
+            { ModelState.AddModelError("", "Something went wrong deleting vendor"); }
+
+            return NoContent();
+        }
     }
 }
 

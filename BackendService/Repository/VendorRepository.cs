@@ -20,6 +20,12 @@ namespace BackendService.Repository
             return Save();
         }
 
+        public bool DeleteVendor(Vendor vendor)
+        {
+            _context.Remove(vendor);
+            return Save();
+        }
+
         public ICollection<Product> GetProductByVendor(int vendorId)
         {
             return _context.ProductVendors.Where(vp => vp.Vendor.Id == vendorId).Select(vp => vp.Product).OrderBy(p=>p.Id).ToList();
@@ -44,6 +50,12 @@ namespace BackendService.Repository
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool UpdateVendor(Vendor vendor)
+        {
+            _context.Update(vendor);
+            return Save();
         }
 
         public bool VendorExists(int vendorId)

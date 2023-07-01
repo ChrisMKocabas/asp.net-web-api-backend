@@ -1,4 +1,5 @@
 ﻿using System;
+using BackendService.Data;
 using BackendService.Interfaces;
 using BackendService.Models;
 
@@ -6,34 +7,67 @@ namespace BackendService.Repository
 {
     public class ReviewerAddressRepository : IReviewerAddressRepository
     {
-        public bool AddressExists(int id)
+        private readonly DataContext _context;
+
+        public ReviewerAddressRepository(DataContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+
         }
 
-        public ReviewerAddress GetAddress(int id)
+        public bool AddressExists(int reviewerAddressId)
         {
-            throw new NotImplementedException();
+            return _context.ReviewerAddresses.Any(r => r.Id == reviewerAddressId);
         }
 
-        public ReviewerAddress GetAddressByReviewer(int reviewerId)
+        public bool CreateReviewerAddress(ReviewerAddress reviewerAddress)
         {
-            throw new NotImplementedException();
+            _context.Add(reviewerAddress);
+            return Save();
+        }
+
+        public bool DeleteReviewerAddress(ReviewerAddress reviewerAddress)
+        {
+            _context.Remove(reviewerAddress);
+            return Save();
+        }
+
+        public bool DeleteReviewerAddresses(List<ReviewerAddress> reviewerAddresses)
+        {
+            _context.RemoveRange(reviewerAddresses);
+            return Save();
+        }
+
+        public ReviewerAddress GetAddress(int reviewerAddressId)
+        {
+            return _context.ReviewerAddresses.Where(r => r.Id == reviewerAddressId).FirstOrDefault();
         }
 
         public ICollection<ReviewerAddress> GetAddresses()
         {
-            throw new NotImplementedException();
+            return _context.ReviewerAddresses.ToList();
         }
 
         public ICollection<ReviewerAddress> GetAllAddressesOfaReviewer(int reviewerId)
         {
-            throw new NotImplementedException();
+            return _context.ReviewerAddresses.Where(r => r.ReviewerId == reviewerId).ToList();
         }
 
-        public bool SetDefaultAddress(int id)
+        public ReviewerAddress GetDefaultAddressOfReviewer(int reviewerId)
         {
-            throw new NotImplementedException();
+            return _context.ReviewerAddresses.Where(r => r.ReviewerId == reviewerId && r.DefaultAddress).FirstOrDefault();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateReviewerAddress(ReviewerAddress reviewerAddress)
+        {
+            _context.Update(reviewerAddress);
+            return Save();
         }
     }
 }
