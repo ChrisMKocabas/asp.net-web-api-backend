@@ -10,6 +10,7 @@ This is a backend service for an application I am developing. The purpose of thi
 - [Project Structure](#project-structure)
 - [Available API Endpoints](#available-api-endpoints)
 - [Running the Application](#running-the-application)
+- [UML Diagram](#uml-diagram)
 - [Using Visual Studio for Mac](#using-visual-studio-for-mac)
 
 ## Technologies Used
@@ -59,7 +60,11 @@ The backend service will start running on `https://localhost:5001` (or `http://l
 
 **Note:** This README file provides a brief overview of the backend service. For more details about each endpoint and its functionality, please refer to the source code and the XML documentation comments provided in the project.
 
-For any questions or issues, please contact me at chriskocabas@outlook.com
+## UML Diagram
+
+
+![Untitled](https://github.com/ChrisMKocabas/asp.net-web-api-backend/assets/75855099/e5e7f8a3-5316-4324-8980-de67ec13a6f9)
+
 
 ## Using Visual Studio for Mac
 
